@@ -40,7 +40,6 @@ void stulist::print_list()  //打印list
 	else
 	{
 		std::cout << "学号		" << "姓名		" << "成绩 		" << std::endl;
-		std::cout << std::endl;
 		for (int i = 0; i <= len; i++)
 		{
 			std::cout << list[i].id << "		" << list[i].name << "	    " << list[i].score << std::endl;
@@ -113,4 +112,124 @@ void stulist::dele() //删除学生信息
 	if (i == len + 1)
 		std::cout << "没有此学号的学生！" << std::endl;
 	return;
+}
+
+void stulist::modify() //修改学生信息
+{
+	if (is_empty())
+	{
+		std::cout << "暂无学生信息！" << std::endl;
+		return;
+	}
+	std::cout << "请输入需修改信息的学生学号: "; // 默认学号不需要修改
+	char modify_id[15] = { 0 };
+	std::cin >> modify_id;
+	int i;
+	for (int i = 0; i <= len; i++)
+	{
+		if (strcmp(list[i].id, modify_id) == 0)
+		{
+			std::cout << "学号		" << "姓名		" << "成绩	 	" << std::endl;
+			std::cout << list[i].id << "		" << list[i].name << "	    " << list[i].score << std::endl;
+			std::cout << std::endl;
+			std::cout << "请输入学生新姓名 " ;
+			std::cin.getline(list[i].name,20);
+	        std::cout << "请输入学生新成绩 " ;
+			std::cin >> list[i].score;
+			while(list[i].score < 0 || list[i].score > 100)
+			{
+				std::cout << "输入有误,请重新输入：";
+				std::cin >> list[i].score;
+			}
+			std::cout << "修改成功，结果如下： " << std::endl;
+			std::cout << "学号		" << "姓名		" << "成绩	 	" << std::endl;
+			std::cout << list[i].id << "		" << list[i].name << "	    " << list[i].score << std::endl;
+			return;
+		}
+	}
+	if (i == len + 1)
+		std::cout << "没有此学号的学生！" << std::endl;
+	return;
+}
+
+void stulist::id_find_() //按照学号查找学生信息
+{
+	std::cout << "请输入要查询的学生学号:  ";
+	char find_id[15] = { 0 };
+	std::cin >> find_id;
+	int i = id_find(find_id);
+	if (i < 0)
+		std::cout << "无该学生信息! " << std::endl;
+	else
+	{
+		std::cout << "学号		" << "姓名		" << "成绩	 	" << std::endl;
+		std::cout << list[i].id << "		" << list[i].name << "	    " << list[i].score << std::endl;
+		std::cout << std::endl;
+	}
+	return;
+}
+
+void stulist::name_find() //按照姓名查找学生信息
+{
+	std::cout << "请输入要查询的学生姓名: ";
+	char find_name[20] = { 0 };
+	std::cin.getline(find_name,20);
+	int i;
+	for (i = 0; i <= len; i++)
+	{
+		if (strcmp(find_name, list[i].name) == 0)
+		{
+			std::cout << "学号		" << "姓名		" << "成绩	 	" << std::endl;
+			std::cout << list[i].id << "		" << list[i].name << "	    " << list[i].score << std::endl;
+			std::cout << std::endl;
+			return;
+		}
+	}
+	if (i == len + 1)
+		std::cout << "无该学生信息! " << std::endl;
+	return;
+}
+
+void stulist::score_sort() //将成绩从高到低排序
+{
+	if (is_empty())
+	{
+		std::cout << "暂无学生信息！" << std::endl;
+		return;
+	}
+	student	temp;
+	for (int i = 0; i < len; i++)
+	{
+		for (int j = 0; j < len - i; j++)
+		{
+			if (list[j].score < list[j + 1].score)
+			{
+				temp = list[j];
+				list[j] = list[j + 1];
+				list[j + 1] = temp;
+			}
+		}
+	}
+}
+
+void stulist::id_sort() //将学号从低到高排序
+{
+	if (is_empty())
+	{
+		std::cout << "暂无学生信息！" << std::endl;
+		return;
+	}
+	student	temp;
+	for (int i = 0; i < len; i++)
+	{
+		for (int j = 0; j < len - i; j++)
+		{
+			if (strcmp(list[j].id, list[j + 1].id) > 0)
+			{
+				temp = list[j];
+				list[j] = list[j + 1];
+				list[j + 1] = temp;
+			}
+		}
+	}
 }
