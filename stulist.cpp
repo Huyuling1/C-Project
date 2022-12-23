@@ -1,4 +1,5 @@
 #include<iostream>
+#include<cstring>
 #include "stulist.h"
 
 
@@ -26,7 +27,6 @@ int stulist::id_find(const char* s) //判断学号是否存在，若存在则返回在list里的位
 		if (strcmp(s, list[i].id) == 0)
 			return i;
 	}
-	if (i == len + 1)
 		return -1;
 }
 
@@ -58,13 +58,14 @@ void stulist::add()//增加学生信息
 	}
 	std::cout << "请输入学生学号 " ;
 	std::cin >> list[len + 1].id;
+	std::cin.get();
 	int i = id_find(list[len + 1].id);
 	if (i >= 0)
 	{
 		std::cout << "该学生已存在! " << "姓名为: "  << list[i].name << std::endl; 
 		return;
 	}
-	std::cout << "请输入学生姓名 " << std::endl;
+	std::cout << "请输入学生姓名 ";
 	std::cin.getline(list[len + 1].name,20);
 	std::cout << "请输入学生成绩 ";
 	std::cin >> list[len + 1].score;
@@ -73,6 +74,8 @@ void stulist::add()//增加学生信息
 		std::cout << "输入有误,请重新输入 " ;
 		std::cin >> list[len + 1].score;
 	}
+	std::cout << "录入成功！" << std::endl;
+	std::cout << std::endl;
 	len++;
 }
 
@@ -80,7 +83,7 @@ void stulist::dele() //删除学生信息
 {
 	if (is_empty())
 	{
-		std::cout << "无法再增添学生信息! " << std::endl;
+		std::cout << "暂无学生信息！" << std::endl;
 		return;
 	}
 	char dele_id[15] = { 0 };
@@ -124,8 +127,9 @@ void stulist::modify() //修改学生信息
 	std::cout << "请输入需修改信息的学生学号: "; // 默认学号不需要修改
 	char modify_id[15] = { 0 };
 	std::cin >> modify_id;
+	std::cin.get();
 	int i;
-	for (int i = 0; i <= len; i++)
+	for (i = 0; i <= len; i++)
 	{
 		if (strcmp(list[i].id, modify_id) == 0)
 		{

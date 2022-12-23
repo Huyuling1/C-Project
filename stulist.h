@@ -1,7 +1,6 @@
 //stulist.h --结构声明与类定义
 #include<iostream>
 #define listlen 100
-using namespace std;
 
 struct student
 {
@@ -21,7 +20,7 @@ public:
 
 	int is_full(); //判断list是否为满
 
-	int id_find(char []);  //判断学号是否存在，若存在则返回该学生姓名
+	int id_find(const char*);  //判断学号是否存在，若存在则返回在list里的位置
 
 	void print_list();  //打印list
 	//以下为行使功能的函数
@@ -31,7 +30,7 @@ public:
 
 	void modify(); //修改学生信息
 
-	void id_find(); //按照学号查找学生信息
+	void id_find_(); //按照学号查找学生信息
 
 	void name_find(); //按照姓名查找学生信息
 
