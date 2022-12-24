@@ -40,10 +40,12 @@ void stulist::print_list()  //打印list
 	}
 	else
 	{
-		std::cout << "学号		" << "姓名		" << "成绩 		" << std::endl;
+		std::cout << std::left << std::setw(10) << "学号" << std::setw(10) 
+			<< "姓名" << std::setw(10) << "成绩" << std::endl;
 		for (int i = 0; i <= len; i++)
 		{
-			std::cout << list[i].id << "		" << list[i].name << "	    " << list[i].score << std::endl;
+			std::cout << std::left << std::setw(10) << list[i].id << std::setw(10) 
+				<< list[i].name << std::setw(10) << list[i].score << std::endl;
 		}
 		std::cout << std::endl;
 		return;
@@ -134,8 +136,10 @@ void stulist::modify() //修改学生信息
 	{
 		if (strcmp(list[i].id, modify_id) == 0)
 		{
-			std::cout << "学号		" << "姓名		" << "成绩	 	" << std::endl;
-			std::cout << list[i].id << "		" << list[i].name << "	    " << list[i].score << std::endl;
+			std::cout << std::left << std::setw(10) << "学号" << std::setw(10)
+				<< "姓名" << std::setw(10) << "成绩" << std::endl;
+			std::cout << std::left << std::setw(10) << list[i].id << std::setw(10)
+				<< list[i].name << std::setw(10) << list[i].score << std::endl;
 			std::cout << std::endl;
 			std::cout << "请输入学生新姓名 " ;
 			std::cin.getline(list[i].name,20);
@@ -147,8 +151,10 @@ void stulist::modify() //修改学生信息
 				std::cin >> list[i].score;
 			}
 			std::cout << "修改成功，结果如下： " << std::endl;
-			std::cout << "学号		" << "姓名		" << "成绩	 	" << std::endl;
-			std::cout << list[i].id << "		" << list[i].name << "	    " << list[i].score << std::endl;
+			std::cout << std::left << std::setw(10) << "学号" << std::setw(10)
+				<< "姓名" << std::setw(10) << "成绩" << std::endl;
+			std::cout << std::left << std::setw(10) << list[i].id << std::setw(10)
+				<< list[i].name << std::setw(10) << list[i].score << std::endl;
 			return;
 		}
 	}
@@ -157,25 +163,35 @@ void stulist::modify() //修改学生信息
 	return;
 }
 
-void stulist::id_find_() //按照学号查找学生信息
+void stulist::id_find_() //按照学号查找信息(若成绩不及格则不显示成绩，并提醒重修）
 {
-	std::cout << "请输入要查询的学生学号:  ";
+	score_sort();
+	std::cout << "请输入您的学号:  ";
 	char find_id[15] = { 0 };
 	std::cin >> find_id;
 	int i = id_find(find_id);
-	if (i < 0)
-		std::cout << "无该学生信息! " << std::endl;
+	while (i < 0)
+	{
+		std::cout << "无该学号信息!请重新输入: " << std::endl;
+		std::cin >> find_id;
+		int i = id_find(find_id);
+	}
+	if (list[i].score < 60)
+	{
+		std::cout << "您的成绩不及格，请重修！" << std::endl;
+		std::cout << std::endl;
+	}
 	else
 	{
-		std::cout << "学号		" << "姓名		" << "成绩	 	" << std::endl;
-		std::cout << list[i].id << "		" << list[i].name << "	    " << list[i].score << std::endl;
+		std::cout << "您的成绩为: " << list[i].score <<  "    "  << "排名为: " << i + 1 << std::endl;
 		std::cout << std::endl;
 	}
 	return;
 }
 
-void stulist::name_find() //按照姓名查找学生信息
+void stulist::name_find() //按照姓名查找信息(若成绩不及格则不显示成绩，并提醒重修）
 {
+	flag:
 	std::cout << "请输入要查询的学生姓名: ";
 	char find_name[20] = { 0 };
 	std::cin.getline(find_name,20);
@@ -184,15 +200,22 @@ void stulist::name_find() //按照姓名查找学生信息
 	{
 		if (strcmp(find_name, list[i].name) == 0)
 		{
-			std::cout << "学号		" << "姓名		" << "成绩	 	" << std::endl;
-			std::cout << list[i].id << "		" << list[i].name << "	    " << list[i].score << std::endl;
-			std::cout << std::endl;
+			if (list[i].score < 60)
+			{
+				std::cout << "您的成绩不及格，请重修！" << std::endl;
+				std::cout << std::endl;
+			}
+			else
+			{
+				std::cout << "您的成绩为: " << list[i].score << "    " << "排名为: " << i + 1 << std::endl;
+				std::cout << std::endl;
+			}
 			return;
 		}
 	}
 	if (i == len + 1)
-		std::cout << "无该学生信息! " << std::endl;
-	return;
+		std::cout << "无该姓名信息!请重新输入: " << std::endl;
+	goto flag;
 }
 
 void stulist::score_sort() //将成绩从高到低排序
@@ -253,13 +276,20 @@ void stulist::score_count() //统计各分数段人数，计算平均分
 		else
 			count[3]++;
 	}
-	std::cout << std::left << ">90" << std::setw(10) << "70-90"
-		<< std::setw(10) << "60-70" << std::setw(10) << "<60" << std::endl;
-	std::cout << std::left << count[0] << "人" << std::setw(10) << count[1] << "人"
-		<< std::setw(10) << count[2] << "人" << std::setw(10) << count[3] << "人" << std::endl;
-	double s = 0;
-	for (int i = 0; i <= len; i++)
-		s = s + list[i].score;
-	std::cout << "平均分为： " << s / len << std::endl;
+	std::cout << std::endl;
+	std::cout << std::left << std::setw(10) << "> 90" << std::setw(10) << "70-90"
+		<< std::setw(10) << "60-70" << std::setw(10) << "< 60" << std::endl;
+	std::cout << std::left << std::setw(10) << count[0] << std::setw(10) << count[1]
+		<< std::setw(10) << count[2] << std::setw(10) << count[3] << std::setw(10) << "人" << std::endl;
+	if(len == 0)
+		std::cout << "平均分为： " << list[0].score << std::endl;
+	else
+	{
+		double s = 0;
+		for (int i = 0; i <= len; i++)
+			s = s + list[i].score;
+		std::cout << "平均分为： " << s / (len + 1) << std::endl;
+	}
+	std::cout << std::endl;
 	return;
 }

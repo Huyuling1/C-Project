@@ -30,9 +30,9 @@ public:
 
 	void modify(); //修改学生信息
 
-	void id_find_(); //按照学号查找学生信息
+	void id_find_(); //按照学号查找信息(若成绩不及格则不显示成绩，并提醒重修）
 
-	void name_find(); //按照姓名查找学生信息
+	void name_find(); //按照姓名查找信息(若成绩不及格则不显示成绩，并提醒重修）
 
 	void score_sort(); //将成绩从高到低排序  
 
