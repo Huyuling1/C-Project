@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cstring>
+#include<iomanip>
 #include "stulist.h"
 
 
@@ -236,4 +237,29 @@ void stulist::id_sort() //将学号从低到高排序
 			}
 		}
 	}
+}
+
+void stulist::score_count() //统计各分数段人数，计算平均分
+{
+	int count[4] = {0};
+	for (int i = 0; i <= len; i++)
+	{
+		if (list[i].score >= 90)
+			count[0]++;
+		else if (list[i].score >= 70 && list[i].score < 90)
+			count[1]++;
+		else if (list[i].score >= 60 && list[i].score < 70)
+			count[2]++;
+		else
+			count[3]++;
+	}
+	std::cout << std::left << ">90" << std::setw(10) << "70-90"
+		<< std::setw(10) << "60-70" << std::setw(10) << "<60" << std::endl;
+	std::cout << std::left << count[0] << "人" << std::setw(10) << count[1] << "人"
+		<< std::setw(10) << count[2] << "人" << std::setw(10) << count[3] << "人" << std::endl;
+	double s = 0;
+	for (int i = 0; i <= len; i++)
+		s = s + list[i].score;
+	std::cout << "平均分为： " << s / len << std::endl;
+	return;
 }

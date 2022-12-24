@@ -38,4 +38,6 @@ public:
 
 	void id_sort(); //将学号从低到高排序
 
+	void score_count(); //统计各分数段人数，计算平均分
+
 };
