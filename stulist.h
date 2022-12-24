@@ -14,6 +14,7 @@ class stulist
 private:
 	student list[listlen] = { 0 };
 	int len = -1;  //表示结构数组中最后一个元素的位置
+	int ranking[listlen] = { 0 }; //纪录排名（解决学生有相同分数出现排名不同的情况）
 public:
 	//首先需要几个进行准备工作的函数
 	int is_empty(); //判断list是否为空
@@ -40,4 +41,5 @@ public:
 
 	void score_count(); //统计各分数段人数，计算平均分
 
+	void rank(); //解决学生有相同分数出现排名不同的情况
 };

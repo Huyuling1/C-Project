@@ -183,7 +183,8 @@ void stulist::id_find_() //∞¥’’—ß∫≈≤È’“–≈œ¢(»Ù≥…º®≤ªº∞∏Ò‘Ú≤ªœ‘ æ≥…º®£¨≤¢Ã·–—÷ÿ–ﬁ
 	}
 	else
 	{
-		std::cout << "ƒ˙µƒ≥…º®Œ™: " << list[i].score <<  "    "  << "≈≈√˚Œ™: " << i + 1 << std::endl;
+		rank();
+		std::cout << "ƒ˙µƒ≥…º®Œ™: " << list[i].score <<  "    "  << "≈≈√˚Œ™: " << ranking[i] << std::endl;
 		std::cout << std::endl;
 	}
 	return;
@@ -191,6 +192,7 @@ void stulist::id_find_() //∞¥’’—ß∫≈≤È’“–≈œ¢(»Ù≥…º®≤ªº∞∏Ò‘Ú≤ªœ‘ æ≥…º®£¨≤¢Ã·–—÷ÿ–ﬁ
 
 void stulist::name_find() //∞¥’’–’√˚≤È’“–≈œ¢(»Ù≥…º®≤ªº∞∏Ò‘Ú≤ªœ‘ æ≥…º®£¨≤¢Ã·–—÷ÿ–ﬁ£©
 {
+	score_sort();
 	flag:
 	std::cout << "«Î ‰»Î“™≤È—Øµƒ—ß…˙–’√˚: ";
 	char find_name[20] = { 0 };
@@ -207,7 +209,8 @@ void stulist::name_find() //∞¥’’–’√˚≤È’“–≈œ¢(»Ù≥…º®≤ªº∞∏Ò‘Ú≤ªœ‘ æ≥…º®£¨≤¢Ã·–—÷ÿ–
 			}
 			else
 			{
-				std::cout << "ƒ˙µƒ≥…º®Œ™: " << list[i].score << "    " << "≈≈√˚Œ™: " << i + 1 << std::endl;
+				rank();
+				std::cout << "ƒ˙µƒ≥…º®Œ™: " << list[i].score << "    " << "≈≈√˚Œ™: " << ranking[i] << std::endl;
 				std::cout << std::endl;
 			}
 			return;
@@ -292,4 +295,15 @@ void stulist::score_count() //Õ≥º∆∏˜∑÷ ˝∂Œ»À ˝£¨º∆À„∆Ωæ˘∑÷
 	}
 	std::cout << std::endl;
 	return;
+}
+
+void stulist::rank() //Ω‚æˆ—ß…˙”–œ‡Õ¨∑÷ ˝≥ˆœ÷≈≈√˚≤ªÕ¨µƒ«Èøˆ
+{
+	for (int i = 0; i <= len; i++)
+		ranking[i] = i + 1;
+	for (int i = 1; i <= len; i++)
+	{
+		if (list[i].score == list[i - 1].score)
+			ranking[i] = ranking[i - 1];
+	}
 }

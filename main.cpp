@@ -1,10 +1,12 @@
 #include<iostream>
 #include "stulist.h"
 #include <windows.h>
+#include<string>
 
 int main(void)
 {
 	stulist sl;
+	std::string code;
 flag0:
 	std::cout << "欢迎来到学生管理系统，请选择您的身份: " << std::endl;
 	std::cout << "    1    教师" << std::endl;
@@ -17,6 +19,22 @@ flag0:
 	case 1:
 		//选择教师
 	{
+		 if(code.empty())
+		{
+			std::cin.get();
+			std::cout << "请设置密码: ";
+			getline(std::cin, code);
+			std::cout << "请按回车继续...";
+		}
+		 std::cin.get();
+		 std::cout << "请输入您的密码：";
+		 std::string code1;
+		 getline(std::cin, code1);
+		 while (code1 != code)
+		 {
+			 std::cout << "密码错误，请重新输入：";
+			 getline(std::cin, code1);
+		 }
 	flag1:
 		system("cls");
 		std::cout << "    1    录入学生信息" << std::endl;
