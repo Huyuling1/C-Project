@@ -3,18 +3,23 @@
 #include <iomanip>
 #include "stulist.h"
 
-Node<student>* stulist::id_find(const std::string find) //判断学号是否存在，若存在则返回在list里的位置 
+Node<student>* stulist::id_find(const std::string find) //判断学号是否存在，若存在则返回在list里的位置
+                                                                         //实则是返回指向该id所在的Node的指针
 {
-	for (auto i = list.returnFront(); i != nullptr; i = i->next) {
-		if (i->val.id == find) return i;
+	for (auto i = list.returnFirst(); i != nullptr; i = i->next) 
+	{
+		if (i->val.id == find) 
+			return i;
 	}
 	return nullptr;
 }
 
 Node<student>* stulist::name_find(const std::string find) //判断姓名是否存在，若存在则返回在list里的位置 
 {
-	for (auto i = list.returnFront(); i != nullptr; i = i->next) {
-		if (i->val.name == find) return i;
+	for (auto i = list.returnFirst(); i != nullptr; i = i->next) 
+	{
+		if (i->val.name == find)
+			return i;
 	}
 	return nullptr;
 }
@@ -30,7 +35,7 @@ void stulist::print_list()  //打印list
 	{
 		std::cout << std::left << std::setw(10) << "学号" << std::setw(10)
 			<< "姓名" << std::setw(10) << "成绩" << std::endl;
-		for (auto i = list.returnFront(); i != nullptr; i = i->next)
+		for (auto i = list.returnFirst(); i != nullptr; i = i->next)
 		{
 			std::cout << std::left << std::setw(10) << i->val.id << std::setw(10)
 				<< i->val.name << std::setw(10) << i->val.score << std::endl;
@@ -79,9 +84,9 @@ void stulist::dele() //删除学生信息
 	std::cout << "请输入要删除的学号: ";
 	std::cin >> dele_id;
 
-	auto i = list.returnFront();
+	auto i = list.returnFirst(); //i = first
 	if (i->val.id == dele_id) {
-		list.removeFront();
+		list.removeFirst();
 		std::cout << "删除成功" << std::endl;
 		len--;
 		return;
@@ -206,7 +211,7 @@ void stulist::score_sort() //将成绩从高到低排序
 		return;
 	}
 	student	temp;
-	for (auto i = list.returnFront(); i != nullptr; i = i->next)
+	for (auto i = list.returnFirst(); i != nullptr; i = i->next)
 	{
 		for (auto j = i->next; j != nullptr; j = j->next)
 		{
@@ -228,7 +233,7 @@ void stulist::id_sort() //将学号从低到高排序
 		return;
 	}
 	student	temp;
-	for (auto i = list.returnFront(); i != nullptr; i = i->next)
+	for (auto i = list.returnFirst(); i != nullptr; i = i->next)
 	{
 		for (auto j = i->next; j != nullptr; j = j->next)
 		{
@@ -252,7 +257,7 @@ void stulist::score_count() //统计各分数段人数，计算平均分
 
 	int count[4] = { 0 };
 	double s = 0.0;
-	for (auto i = list.returnFront(); i != nullptr; i = i->next)
+	for (auto i = list.returnFirst(); i != nullptr; i = i->next)
 	{
 		s += i->val.score;
 		if (i->val.score >= 90)
@@ -280,7 +285,7 @@ void stulist::rank() //解决学生有相同分数出现排名不同的情况
 {
 	score_sort();
 	int rank = 1;
-	auto i = list.returnFront();
+	auto i = list.returnFirst();
 	i->val.rank = rank;
 	for (auto j = i->next; i != nullptr && j != nullptr; i = i->next, j = j->next) {
 		rank++;

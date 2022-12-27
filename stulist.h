@@ -12,12 +12,12 @@ struct student
 
 	student()
 	{
-		id = ""; name = ""; score = 0.0;
-	} //构造函数
-	student(std::string id, std::string name, double score)
+		id = "";name = "";score = 0.0; 
+	}
+	student(std::string id1, std::string name1, double score1)
 	{
-		id = id; name = name; score = score;
-	} //构造函数重载
+		id = id1;name = name1;score = score1;
+	}
 };
 
 class stulist
